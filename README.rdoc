@@ -1,0 +1,9 @@
+Please pull the code from GitHub repository
+
+run bundle install
+
+rake db:create
+
+rake db:migrate
+
+start server
