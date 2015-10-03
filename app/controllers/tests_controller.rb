@@ -24,6 +24,7 @@ class TestsController < ApplicationController
 
   def show
     @multiple_choice_questions = MultipleChoiceQuestion.where(test_id: params[:id].to_i).order("created_at ASC").paginate(page: params[:page], per_page:1)
+    @descriptive_questions = DescriptiveQuestion.where(test_id: params[:id].to_i).order("created_at ASC").paginate(page: params[:page], per_page:1)
   end
 
   def activate_test

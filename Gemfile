@@ -49,3 +49,4 @@ gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
 gem 'devise'
 gem "cancancan"
+gem 'paperclip', '~> 4.2'

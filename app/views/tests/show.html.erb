@@ -6,25 +6,28 @@
 
 <%if @test.status != "completed"%>
 <div class="row">
-  <div class="col-md-6 col-sm-6">
-    <div class="form-group">
-      <select class="form-control" name="select1" id="selectQuestion">
-        <option value="1" >Multiple Choice Question</option>
-        <option value="2">Descriptive Question</option>
-      </select>
-    </div>
-  </div>
+  
   <div class="col-md-6 col-sm-6 pull-right">
-    <%= button_to "Create Question", new_multiple_choice_question_path, method: :get, params: {test_id: @test.id} , "onclick" => "createQuestion()", "id" => "button", :class => 'btn btn-primary'%>
+
+      <%= button_to "Create Multiple Choice Question", new_multiple_choice_question_path, method: :get, params: {test_id: @test.id} , "onclick" => "createQuestion()", "id" => "button", :class => 'btn btn-primary'%>
+    </div>
+
+  <div class="col-md-6 col-sm-6 pull-left">
+
+      <%= button_to "Create Descriptive Question", new_descriptive_question_path, method: :get, params: {test_id: @test.id} , "onclick" => "createQuestion()", "id" => "button", :class => 'btn btn-primary'%>
   </div>
 </div>
 <%end %>
+
+
 <div class="row">
   <% @multiple_choice_questions.each do |mcq| %>
   <p>
     <strong>Question:</strong>
     <%= mcq.description %>
   </p>
+
+<%= image_tag mcq.image.url(:medium) %>
 
   <p>
     <strong>Option 1:</strong>
@@ -58,4 +61,29 @@
   <% end %>
   <% end %>
   <%= will_paginate @multiple_choice_questions %>
+</div>
+
+
+<div class="row">
+  <% @descriptive_questions.each do |des| %>
+  <p>
+    <strong>Question:</strong>
+    <%= des.description %>
+  </p>
+
+<%= image_tag des.image.url(:medium) %>
+
+  </br>
+  <p>
+    <strong>Answer:</strong>
+    <%= des.answer %>
+  </p>
+
+  <%if @test.status != "completed"%>
+  <div class="col-md-6 col-sm-6 pull-right">
+    <%= button_to "Edit Question", edit_descriptive_question_path(des), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
+  </div>
+  <% end %>
+  <% end %>
+  <%= will_paginate @descriptive_questions %>
 </div>
