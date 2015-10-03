@@ -3,7 +3,7 @@
 //= require bootstrap
 //= require_tree .
 
-$( document ).ready(funcetion() {
+$( document ).ready(function() {
     $("#create").click(function(){
         var e = document.getElementById("selectQuestion");
         var strUser = e.options[e.selectedIndex].value;
