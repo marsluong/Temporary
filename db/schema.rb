@@ -33,9 +33,13 @@ ActiveRecord::Schema.define(version: 20151003150852) do
     t.string   "option_3"
     t.string   "option_4"
     t.string   "answer"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "question_type", default: "multiple_choice"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "question_type",      default: "multiple_choice"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "student_answers", force: :cascade do |t|
@@ -56,8 +60,6 @@ ActiveRecord::Schema.define(version: 20151003150852) do
     t.datetime "updated_at",            null: false
     t.integer  "no_of_questions"
     t.integer  "no_of_correct_answers"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
