@@ -15,9 +15,6 @@
       <td>
         <%= button_to "Deactivated", deactivate_test_tests_path, method: :get, params: {test_id: test.id}, :class => 'btn btn-large btn-warning'%>
       </td>
-      <td>
-        <%#= button_to "Complete", complete_test_tests_path, method: :get, params: {test_id: test.id}, data: {confirm: "Are you sure?"},:class => 'btn btn-large btn-info'%>
-      </td>
     </tr>
     <% end %>
   </tbody>

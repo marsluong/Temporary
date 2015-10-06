@@ -6,7 +6,6 @@ class HomeController < ApplicationController
       if current_user.teacher?
         @tests = Test.where.not(status: "completed").order("created_at ASC")
         @completed_tests = Test.where(status: "completed").order("created_at ASC")
-        # @completed_tests = Test.where(status: "completed").order("created_at ASC")
         render "teacher_index"
       elsif current_user.student?
         @current_test_id = Test.find_by_status("activated")
