@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001050215) do
+ActiveRecord::Schema.define(version: 20151003150852) do
+
+  create_table "descriptive_questions", force: :cascade do |t|
+    t.integer  "test_id"
+    t.text     "description"
+    t.text     "answer"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "multiple_choice_questions", force: :cascade do |t|
     t.integer  "test_id"
@@ -44,6 +56,12 @@ ActiveRecord::Schema.define(version: 20151001050215) do
     t.datetime "updated_at",            null: false
     t.integer  "no_of_questions"
     t.integer  "no_of_correct_answers"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "tests", force: :cascade do |t|
@@ -66,6 +84,10 @@ ActiveRecord::Schema.define(version: 20151001050215) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -23,6 +23,7 @@ class TestsController < ApplicationController
   end
 
   def show
+<<<<<<< HEAD
     @multiple_choice_questions = MultipleChoiceQuestion.where(test_id: params[:id].to_i)
    
 
@@ -31,6 +32,10 @@ class TestsController < ApplicationController
     # @total_questions.sort_by! {|u| u.created_at}
 
     @total_questions = @total_questions.paginate(page: params[:page], per_page:1)
+=======
+    @multiple_choice_questions = MultipleChoiceQuestion.where(test_id: params[:id].to_i).order("created_at ASC").paginate(page: params[:page], per_page:1)
+    @descriptive_questions = DescriptiveQuestion.where(test_id: params[:id].to_i).order("created_at ASC").paginate(page: params[:page], per_page:1)
+>>>>>>> 657b4040945240e49b8f5134290154befbcc3887
   end
 
   def activate_test
