@@ -1,0 +1,47 @@
+<div class="page-header">
+  <h3>
+    <%= link_to @test.test_name, @test %>
+  </h3>
+</div>
+<div class="row">
+  <% @multiple_choice_questions.each do |mcq| %>
+  <p>
+    <strong>Question:</strong>
+    <%= mcq.description %>
+  </p>
+
+<%= image_tag mcq.image.url(:medium) %>
+
+  <p>
+    <strong>Option 1:</strong>
+    <%= mcq.option_1 %>
+  </p>
+
+  <p>
+    <strong>Option 2:</strong>
+    <%= mcq.option_2 %>
+  </p>
+
+  <p>
+    <strong>Option 3:</strong>
+    <%= mcq.option_3 %>
+  </p>
+
+  <p>
+    <strong>Option 4:</strong>
+    <%= mcq.option_4 %>
+  </p>
+  </br>
+  <p>
+    <strong>Answer:</strong>
+    <%= mcq.answer %>
+  </p>
+
+  <%if @test.status != "completed"%>
+  <div class="col-md-6 col-sm-6 pull-right">
+    <%= button_to "Edit Question", edit_multiple_choice_question_path(mcq), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
+  </div>
+  <% end %>
+  <% end %>
+  <%= will_paginate @multiple_choice_questions %>
+</div>

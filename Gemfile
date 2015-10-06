@@ -44,8 +44,8 @@ end
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'sqlite3'
 gem 'rename'
-gem 'font-awesome-rails', '~> 4.2.0.0'
 gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
 gem 'devise'
 gem "cancancan"
+gem 'paperclip', '~> 4.2'

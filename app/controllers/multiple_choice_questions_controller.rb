@@ -40,7 +40,7 @@ class MultipleChoiceQuestionsController < ApplicationController
   private
   
   def multiple_choice_question_params
-    params.require(:multiple_choice_question).permit(:test_id, :description, :option_1, :option_2, :option_3, :option_4, :answer)
+    params.require(:multiple_choice_question).permit(:test_id, :description, :image, :option_1, :option_2, :option_3, :option_4, :answer)
   end
 
   def set_multiple_choice_question
