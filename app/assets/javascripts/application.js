@@ -4,6 +4,10 @@
 //= require_tree .
 
 $( document ).ready(function() {
+    $('#correct_student').hide();
+    $('#wrong_student').hide();
+    $('#attempted_student').hide();
+    
     $("#button_one").click(function(event){
         questionType = $('#selectQuestion').val()
         if (questionType == 1){
@@ -24,6 +28,19 @@ $( document ).ready(function() {
             window.location.href = "/multiple_choice_questions/new";
         }
         
+    });
+    $('#correct').click(function toggle_stuff() {
+        $('#correct_student').toggle(); 
+        $('#wrong_student').hide();
+    });
+
+    $('#wrong').click(function toggle_stuff() {
+        $('#wrong_student').toggle(); 
+        $('#correct_student').hide();
+    });
+
+    $('#short_answer').click(function toggle_stuff() {
+        $('#attempted_student').toggle();
     });
 
 

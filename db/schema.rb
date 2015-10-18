@@ -11,18 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003150852) do
+ActiveRecord::Schema.define(version: 20151018170913) do
 
   create_table "descriptive_questions", force: :cascade do |t|
     t.integer  "test_id"
     t.text     "description"
     t.text     "answer"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "question_type", default: "descriptive"
   end
 
   create_table "multiple_choice_questions", force: :cascade do |t|

@@ -2,9 +2,23 @@
   <h3>
     <%= link_to @test.test_name, @test %>
   </h3>
+  <% if current_user.student?%>
+  <h4>
+    Marks Obtained : <mark><%= get_student_test_result(@test.id) %></mark>
+  </h4>
+  <%end %>
+  <!-- <%if current_user.teacher? and @test.report == "true"%> -->    
+  <!-- Attempted Students : <mark><%= @attempted_students %></mark> -->   
+  <!-- <% end %>&nbsp&nbsp -->    
+  <!-- <%if current_user.teacher? and @test.report == "true"%> -->    
+  <!-- Correct Attempted Students : <mark><%= @correct_attempted_students %></mark> -->   
+  <!-- <% end %>&nbsp&nbsp -->    
+  <!-- <%if current_user.teacher? and @test.report == "true"%> -->    
+  <!-- Wrong Attempted Students: <mark><%= @wrong_attempted_students %></mark> -->    
+  <!-- <% end %> -->
 </div>
 
-<%if @test.status != "completed"  and current_user.teacher?%>
+<%if current_user.teacher? and @test.report != "true"%>
 <div class="row">
   
   <div class="col-md-6 col-sm-6 pull-right">
@@ -23,6 +37,12 @@
 <div class="row">
   <% @total_questions.each do |tq| %>
   <%if tq.question_type == 'multiple_choice' %>
+  <%if current_user.teacher? and @test.report == "true"%>
+  Attempted Students : <mark><%= tq.attempted_students_count %></mark>&nbsp&nbsp
+  Correct Attempted Students : <%= link_to tq.correct_attempted_students_count,"#", id: "correct" %>&nbsp&nbsp
+  Wrong Attempted Students: <%= link_to tq.wrong_attempted_students_count,"#", id: "wrong" %>
+
+  <%end %>
   <p>
     <strong>Question:</strong>
     <%= tq.description %>
@@ -54,13 +74,43 @@
     <strong>Answer:</strong>
     <%= tq.answer %>
   </p>
+  
+  <% if current_user.student?%>
+  <p>
+    <strong>Your Answer:</strong>
+    <%= get_student_answer(tq.id,tq.test_id,tq.question_type) %>
+  </p>
+  <p>
+    <strong>Result:</strong>
+    <%= get_student_result(tq.id,tq.test_id,tq.question_type) %>
+  </p>
+  <%end %>
+  <%if current_user.teacher? and @test.report == "true"%>
+  <div class="row" id="correct_student">
+    <% tq.correct_attempted_students.each do |student| %>
+    <div class="row">
+      <%= User.find(student.user_id).name %>
+    </div>
+    <%end %>
+  </div>
+  <div class="row" id="wrong_student">
+    <% tq.wrong_attempted_students.each do |student| %>
+    <div class="row">
+      <%= User.find(student.user_id).name %>
+    </div>
+    <%end %>
+  </div>
+  <%end %>
 
-  <%if @test.status != "completed"  and current_user.teacher?%>
+  <%if current_user.teacher? and @test.report != "true" %>
   <div class="col-md-6 col-sm-6 pull-right">
     <%= button_to "Edit Question", edit_multiple_choice_question_path(tq), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
   </div>
   <% end %>
   <%else %>
+  <%if current_user.teacher? and @test.report == "true"%>
+  Attempted Students : <%= link_to tq.attempted_students_count,"#", id: "short_answer" %>
+  <%end %>
   <p>
     <strong>Question:</strong>
     <%= tq.description %>
@@ -69,7 +119,26 @@
     <strong>Answer:</strong>
     <%= tq.answer %>
   </p>
-  <%if @test.status != "completed" and current_user.teacher?%>
+  <% if current_user.student?%>
+  <p>
+    <strong>Your Answer:</strong>
+    <%= get_student_answer(tq.id,tq.test_id,tq.question_type) %>
+  </p>
+  <p>
+    <strong>Result:</strong>
+    <%= get_student_result(tq.id,tq.test_id,tq.question_type) %>
+  </p>
+  <% end %>
+  <%if current_user.teacher? and @test.report == "true"%>
+  <div class="row" id="attempted_student">
+    <% tq.attempted_students.each do |student| %>
+    <div class="row">
+      <%= User.find(student.user_id).name %>
+    </div>
+    <%end %>
+  </div>
+  <%end %>
+  <%if current_user.teacher? and @test.report != "true"%>
   <div class="col-md-6 col-sm-6 pull-right">
     <%= button_to "Edit Question", edit_descriptive_question_path(tq), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
   </div>
@@ -79,27 +148,3 @@
   <%= will_paginate @total_questions %>
 </div>
 
-
-<div class="row">
-  <% @descriptive_questions.each do |des| %>
-  <p>
-    <strong>Question:</strong>
-    <%= des.description %>
-  </p>
-
-<%= image_tag des.image.url(:medium) %>
-
-  </br>
-  <p>
-    <strong>Answer:</strong>
-    <%= des.answer %>
-  </p>
-
-  <%if @test.status != "completed"%>
-  <div class="col-md-6 col-sm-6 pull-right">
-    <%= button_to "Edit Question", edit_descriptive_question_path(des), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
-  </div>
-  <% end %>
-  <% end %>
-  <%= will_paginate @descriptive_questions %>
-</div>

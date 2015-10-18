@@ -39,7 +39,20 @@
     <hr>
     <% end %>
   </div>
-  
+  <div class="row">     
+    <%= f.fields_for :descriptive_questions do |d_question_fields| %>   
+    <%= d_question_fields.hidden_field :id%>    
+    <p>   
+      <strong>Question:</strong>    
+      <%= d_question_fields.object.description %>   
+    </p>    
+    <p>   
+      <strong>Answer:</strong>    
+      <%= d_question_fields.text_area :answer_caught %>   
+    </p>    
+    <hr>    
+    <% end %>   
+  </div>
   <div class="row">
     <div class="col-md-4 col-sm-8 pull-right">
       <%= f.hidden_field :test_id%>

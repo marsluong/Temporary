@@ -24,15 +24,28 @@ class TestsController < ApplicationController
 
   def show
     @multiple_choice_questions = MultipleChoiceQuestion.where(test_id: params[:id].to_i)
-   
-
-    @total_questions = @multiple_choice_questions 
-
-    # @total_questions.sort_by! {|u| u.created_at}
-
+    @descriptive_questions = DescriptiveQuestion.where(test_id: params[:id].to_i)
+    @total_questions = @multiple_choice_questions + @descriptive_questions
+    if params[:report].present?
+      @test.report = "true"      
+      @total_questions.each do |tq|
+        if tq.question_type == "multiple_choice"
+          tq.attempted_students_count = StudentAnswer.where(question_id: tq.id).count
+          tq.correct_attempted_students_count = StudentAnswer.where(question_id: tq.id, result: true).count
+          tq.wrong_attempted_students_count = StudentAnswer.where(question_id: tq.id, result: false).count
+          
+          tq.correct_attempted_students = StudentTest.where(id: StudentAnswer.where(question_id: tq.id, result: true).select(:student_test_id)).select(:user_id)
+          tq.wrong_attempted_students = StudentTest.where(id: StudentAnswer.where(question_id: tq.id, result: false).select(:student_test_id)).select(:user_id)
+        end
+        if tq.question_type == "descriptive"
+          tq.attempted_students_count = StudentAnswer.where(question_id: tq.id).count
+          tq.attempted_students =  StudentTest.where(id: StudentAnswer.where(question_id: tq.id).select(:student_test_id)).select(:user_id)
+        end
+      end
+    end
+    
+    @total_questions.sort_by! {|u| u.created_at}
     @total_questions = @total_questions.paginate(page: params[:page], per_page:1)
-    @multiple_choice_questions = MultipleChoiceQuestion.where(test_id: params[:id].to_i).order("created_at ASC").paginate(page: params[:page], per_page:1)
-    @descriptive_questions = DescriptiveQuestion.where(test_id: params[:id].to_i).order("created_at ASC").paginate(page: params[:page], per_page:1)
   end
 
   def activate_test
@@ -59,19 +72,7 @@ class TestsController < ApplicationController
       flash[:notice] = "No Test Is Active"
     end
     redirect_to "/"
-  end
-
-  def complete_test
-    @test = Test.find(params[:test_id])
-    @test.status = "completed"
-    @test.save
-    flash[:notice] = "Test Moved To Completed"
-    
-    redirect_to "/tests"
-  end
-
-  def completed_tests
-    @tests = Test.where(status: "completed").order("created_at ASC")
+  
   end
 
   def current_exam
@@ -82,7 +83,7 @@ class TestsController < ApplicationController
      
       @student_test = StudentTest.new
       @student_test.multiple_choice_questions = MultipleChoiceQuestion.where(test_id: current_test_id)
-     
+      @student_test.descriptive_questions = DescriptiveQuestion.where(test_id: current_test_id)
       @student_test.test_id = @test.id
     else
       flash[:notice] = "Present No Exam Scheduled"
@@ -91,6 +92,7 @@ class TestsController < ApplicationController
 
   def submit_exam
     @student_test = StudentTest.create(student_test_params)
+    if params[:student_test][:multiple_choice_questions_attributes].present?
     
     params[:student_test][:multiple_choice_questions_attributes].each do |each_question|
       @student_answer = StudentAnswer.new
@@ -99,13 +101,25 @@ class TestsController < ApplicationController
       @student_answer.question_id = each_question[1][:id]
       @student_answer.answer = each_question[1][:answer_caught]
       @student_answer.result = get_result(@student_answer.question_type, @student_answer.question_id, @student_answer.answer)
-      @student_answer.save
+       @student_answer.save   
+      end   
+    end   
+    if params[:student_test][:descriptive_questions_attributes].present?    
+      params[:student_test][:descriptive_questions_attributes].each do |each_question|    
+        @student_answer = StudentAnswer.new   
+        @student_answer.student_test_id = @student_test.id    
+        @student_answer.question_type = "descriptive"   
+        @student_answer.question_id = each_question[1][:id]   
+        @student_answer.answer = each_question[1][:answer_caught]   
+        @student_answer.result = get_result(@student_answer.question_type, @student_answer.question_id, @student_answer.answer)   
+        @student_answer.save    
+      end
     end
     
     @student_test.status = "completed"
     student_report(@student_test)
 
-    redirect_to "/tests/current_exam"
+    redirect_to "/"
   end
 
   private
@@ -130,7 +144,11 @@ class TestsController < ApplicationController
         false
       end
     elsif question_type == "desriptive"
-     
+     if DescriptiveQuestion.find(question_id).answer == answer         
+        true    
+      else    
+        false   
+      end
     end
   end
 

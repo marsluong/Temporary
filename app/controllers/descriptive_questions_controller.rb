@@ -1,6 +1,5 @@
 class DescriptiveQuestionsController < ApplicationController
   before_action :set_descriptive_question, only: [:show, :edit, :update, :destroy]
-
   def new
     @descriptive_question = DescriptiveQuestion.new
     @@test_id = params["test_id"].to_i
@@ -20,7 +19,7 @@ class DescriptiveQuestionsController < ApplicationController
   end
 
   def edit
-    @@page = params[:page]
+     @@page = params[:page]
   end
 
   def update
@@ -40,7 +39,7 @@ class DescriptiveQuestionsController < ApplicationController
   private
   
   def descriptive_question_params
-    params.require(:descriptive_question).permit(:description, :image, :answer)
+    params.require(:descriptive_question).permit(:test_id, :description, :answer)
   end
 
   def set_descriptive_question
