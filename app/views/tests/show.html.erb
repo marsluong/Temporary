@@ -48,7 +48,7 @@
     <%= tq.description %>
   </p>
 
-<%= image_tag tq.image.url(:medium) %>
+<!--<%= image_tag tq.image.url(:medium) %> -->
 
   <p>
     <strong>Option 1:</strong>
@@ -115,19 +115,39 @@
     <strong>Question:</strong>
     <%= tq.description %>
   </p>
-  <p>
-    <strong>Answer:</strong>
-    <%= tq.answer %>
-  </p>
-  <% if current_user.student?%>
+  Answer : <%= tq.answer %>
+  <br>
+  <br>
+  <form>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" name="studentname"> <button type="button"><strong>Search Student Name</strong></button>
+<br>
+</form>
+  <!--<p>-->
+  <!--  <strong>Answer:</strong>-->
+  <!--  <%= tq.answer %>-->
+  <!--</p>-->
+   <% if current_user.student? and get_student_answer(tq.id,tq.test_id,tq.question_type) == tq.answer %>
   <p>
     <strong>Your Answer:</strong>
     <%= get_student_answer(tq.id,tq.test_id,tq.question_type) %>
+    <br>
+    <br>
+    <h3 style="color:green"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Correct!</strong></h3>
   </p>
+
+  <% elsif current_user.student? and get_student_answer(tq.id,tq.test_id,tq.question_type) != tq.answer %>
   <p>
-    <strong>Result:</strong>
-    <%= get_student_result(tq.id,tq.test_id,tq.question_type) %>
+    <strong>Your Answer:</strong>
+    <%= get_student_answer(tq.id,tq.test_id,tq.question_type) %>
+    <br>
+    <br>
+    <h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See Instructor for correct answer!</strong></h3>
   </p>
+  <!-- <p> -->
+  <!--  <strong>Result:</strong> -->
+  <!--  <%= get_student_result(tq.id,tq.test_id,tq.question_type) %> -->
+  <!-- </p> -->
   <% end %>
   <%if current_user.teacher? and @test.report == "true"%>
   <div class="row" id="attempted_student">
