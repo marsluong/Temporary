@@ -50,3 +50,4 @@ gem 'bootstrap-will_paginate'
 gem 'devise'
 gem "cancancan"
 gem 'paperclip', '~> 4.2'
+gem 'rails-jquery-autocomplete'

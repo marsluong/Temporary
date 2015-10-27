@@ -39,38 +39,15 @@
   Wrong Attempted Students: <%= link_to tq.wrong_attempted_students_count,"#", id: "wrong" %>
 </div>
   <%end %>
-  <p>
-    <strong>Question:</strong>
-    <%= tq.description %>
-  </p>
 
-<!--<%= image_tag tq.image.url(:medium) %> -->
 
-  <p>
-    <strong>Option 1:</strong>
-    <%= tq.option_1 %>
-  </p>
-
-  <p>
-    <strong>Option 2:</strong>
-    <%= tq.option_2 %>
-  </p>
-
-  <p>
-    <strong>Option 3:</strong>
-    <%= tq.option_3 %>
-  </p>
-
-  <p>
-    <strong>Option 4:</strong>
-    <%= tq.option_4 %>
-  </p>
   <div class="row">
     <div class="col-md-12">
       <div class="col-md-4">
         <p>
           <strong>Question:</strong>
           <%= tq.description %>
+            <%= image_tag tq.image.url(:medium) %>
         </p>
       </div>
     </div>
@@ -203,37 +180,49 @@
     <strong>Question:</strong>
     <%= tq.description %>
   </p>
-  Answer : <%= tq.answer %>
-  <br>
-  <br>
-  <form>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="text" name="studentname"> <button type="button"><strong>Search Student Name</strong></button>
-<br>
-</form>
-   <% if current_user.student? and get_student_answer(tq.id,tq.test_id,tq.question_type) == tq.answer %>
-  <%if !current_user.student?%>
+  <%if current_user.teacher?%>
+
   <p>
     <strong>Answer:</strong>
     <%= tq.answer %>
   </p>
   <%end%>
+
+  <%if current_user.teacher? and @test.report == "true"%>
+  <div class="row">
+    <%= form_tag search_tests_path(:gim => 5), :method => 'get' , :class => "form-inline" do %>
+    <div class="col-md-8">
+      <div class="pull-right">
+        <%= autocomplete_field_tag :term, params[:term], autocomplete_student_name_tests_path, :class => "form-control", :placeholder => "Type Student Name",  :id_element => "#student_id" %>
+        <%= hidden_field_tag :student_id, "", :id => "student_id" %>
+        <%= hidden_field_tag :test_id, "", :value => @test.id %>
+        <%= hidden_field_tag :page, "", :value => params[:page]%>
+        <%= hidden_field_tag :question_id, "", :value => tq.id%>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-search fa-lg"></i>Search
+      </button>
+    </div>
+    <%end%>
+  </div>
+  <%end%>
+  
+
   <% if current_user.student?%>
   <p>
     <strong>Your Answer:</strong>
     <%= get_student_answer(tq.id,tq.test_id,tq.question_type) %>
-    <br>
-    <br>
-    <h3 style="color:green"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Correct!</strong></h3>
+    
   </p>
-
-  <% elsif current_user.student? and get_student_answer(tq.id,tq.test_id,tq.question_type) != tq.answer %>
+  
   <p>
-    <strong>Your Answer:</strong>
-    <%= get_student_answer(tq.id,tq.test_id,tq.question_type) %>
-    <br>
-    <br>
-    <h3><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See Instructor for correct answer!</strong></h3>
+   <%if  get_student_result(tq.id,tq.test_id,tq.question_type) == true%>
+    <h2 class="correct_option"><b>Correct!</b></h2>
+    <%elsif  get_student_result(tq.id,tq.test_id,tq.question_type) == false%>
+    <h2><b>See Instructor for correct answer!</b></h2>
+    <%end%>
   </p>
   <% end %>
   <%if current_user.teacher? and @test.report == "true"%>
