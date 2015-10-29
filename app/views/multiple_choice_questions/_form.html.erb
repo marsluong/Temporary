@@ -1,5 +1,6 @@
 <%= form_for @multiple_choice_question, :html => { :multipart => true, :class => "form-horizontal", :role => "form" } do |f| %>
   <%= render "shared/error_messages", :object => f.object %>
+  <!-- display multiple choice question form -->
   <div class="row">
     <div class="row">
       <div class="col-md-4 col-sm-8">
@@ -53,6 +54,8 @@
         <%= f.radio_button :answer, 'option_4' %> Option 4
       </div>
     </div>
+
+    <!-- function calls to create and edit the question -->
   <div class="row">
     <div class="col-md-4 col-sm-8 pull-right">
       <%if @_controller.action_name == 'new'%>

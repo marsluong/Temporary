@@ -1,4 +1,5 @@
 <div class="page-header">
+
   <%if params[:report].present? %>
   <h3>
     <%= link_to @test.test_name,"#" %>
@@ -8,6 +9,8 @@
     <%= link_to @test.test_name, @test %>
   </h3>
   <%end %>
+
+  <!-- if the current user is a student, display marks scored -->
   <% if current_user.student?%>
   <h4>
     Marks Obtained : <mark><%= get_student_test_result(@test.id) %></mark>
@@ -15,6 +18,7 @@
   <%end %>
 </div>
 
+<!-- if the current user is a teacher and test report is not selected -->
 <%if current_user.teacher? and @test.report != "true"%>
 <div class="row">
   
@@ -29,6 +33,8 @@
   </div>
 </div>
 <%end %>
+
+<!-- If the current user is a teacher and test report is selected, display statistics of the test -->
   <div class="col-md-12">
   <% @total_questions.each do |tq| %>
   <%if tq.question_type == 'multiple_choice' %>
@@ -40,7 +46,7 @@
 </div>
   <%end %>
 
-
+<!-- display reports for each option -->
   <div class="row">
     <div class="col-md-12">
       <div class="col-md-4">
@@ -105,6 +111,8 @@
     </div>
   </div>
   </br>
+
+  <!-- If current user is a teacher, display correct answer -->
   <%if current_user.teacher?%>
   <div class="col-md-12">
     <p>
@@ -113,12 +121,16 @@
     </p>
   </div>
   <%end%>
+
+  <!-- if current user is a teacher and test report is selected, display overall performance -->
   <%if current_user.teacher? and @test.report == "true"%>
   <div class="col-md-12">
     <h4><b>Overall:</b> <b style="color:green"><%= tq.correct_attempted_students_count%></b>  <b>out of</b>  <b style="color:green"><%=tq.attempted_students_count%></b>  <b>students answered</b> <b style="color:green">correct </b>  <b>(</b> <b style="color:green"><%= (tq.correct_attempted_students_count.to_f/tq.attempted_students_count).round( 2 )*100%></b> <b style="color:green">%</b> <b>)</b>
     </h4>
   </div>
   <%end%>
+
+  <!-- if current user is a student, display student's answer -->
   <% if current_user.student?%>
   <p>
     <strong>Your Answer:</strong>
@@ -132,6 +144,8 @@
     <%end%>
   </p>
   <%end %>
+
+  <!-- if current user is a teacher and test report is selected, display list of correct responses and wrong responses -->
   <%if current_user.teacher? and @test.report == "true"%>
   <div class="row" id="correct_student">
     <table class="table table-bordered table-hover">
@@ -167,12 +181,15 @@
   </div>
   <%end %>
 
+<!--If current user is a teacher and test is selected, give provision to edit the question -->
   <%if current_user.teacher? and @test.report != "true" %>
   <div class="col-md-6 col-sm-6 pull-right">
     <%= button_to "Edit Question", edit_multiple_choice_question_path(tq), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
   </div>
   <%end %>
   <%else %>
+
+  <!-- if current user is a teacher and test report is selected, display number of attempted students for descriptive questions -->
   <%if current_user.teacher? and @test.report == "true"%>
   Attempted Students : <%= link_to tq.attempted_students_count,"#", id: "short_answer" %>
   <%end %>
@@ -180,6 +197,8 @@
     <strong>Question:</strong>
     <%= tq.description %>
   </p>
+
+  <!-- if current user is a teacher display correct answer -->
   <%if current_user.teacher?%>
 
   <p>
@@ -188,6 +207,8 @@
   </p>
   <%end%>
 
+
+<!-- search code  -->
   <%if current_user.teacher? and @test.report == "true"%>
   <div class="row">
     <%= form_tag search_tests_path(:gim => 5), :method => 'get' , :class => "form-inline" do %>
@@ -210,6 +231,7 @@
   <%end%>
   
 
+  <!-- if current user is a student, display student's answer -->
   <% if current_user.student?%>
   <p>
     <strong>Your Answer:</strong>
@@ -225,6 +247,8 @@
     <%end%>
   </p>
   <% end %>
+
+<!-- if current user is a teacher and test report is selected, display list of student responses -->
   <%if current_user.teacher? and @test.report == "true"%>
   <div class="row" id="attempted_student">
     <table class="table table-bordered table-hover">
@@ -243,12 +267,14 @@
     </table>
   </div>
   <%end %>
+
+  <!--If current user is a teacher and test is selected, give provision to edit the question -->
   <%if current_user.teacher? and @test.report != "true"%>
   <div class="col-md-6 col-sm-6 pull-right">
-    <%= button_to "Edit Question", edit_descriptive_question_path(tq), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
+    <%= button_to "Edit question", edit_descriptive_question_path(tq), method: :get, params: {page: params[:page]}, :class => 'btn btn-primary'%>
   </div>
   <%end %>
   <%end %>
   <%end %>
-  <%= will_paginate @total_questions %>
+ <!-- <%= will_paginate @total_questions %> -->
 </div>

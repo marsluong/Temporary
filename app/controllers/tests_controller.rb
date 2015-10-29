@@ -12,11 +12,15 @@ class TestsController < ApplicationController
 
   def search 
     @student_response = StudentAnswer.where(question_type: "descriptive", question_id: params[:question_id], student_test_id: StudentTest.where(test_id: params[:test_id].to_i, user_id: params[:student_id]))
-
+    
     if @student_response.present?
-      @student_response = "#{User.find(params[:student_id]).name} "+"Response :  "+" #{@student_response[0][:answer]}"
+      @student_response = "#{User.find(params[:student_id]).name} "+"Response :  "+" <b> #{@student_response[0][:answer]} </b>"
     else
-      @student_response ="#{User.find(params[:student_id]).name} "+" Didn't attemp this Question"
+      if params[:student_id].present?
+        @student_response ="<b> #{User.find(params[:student_id]).name} </b>"+" Didnt Attempted This Question"
+      else
+        @student_response ="No Student With Name : "+" <b >#{params[:term]}</b>"
+      end
     end
 
     redirect_to "/tests/#{params[:test_id]}?page=#{params[:page]}&report=true", :notice => @student_response
@@ -49,12 +53,8 @@ class TestsController < ApplicationController
         if tq.question_type == "multiple_choice"
           @answer = []
           
-
-
-
           tq.attempted_students_count = StudentTest.where(id: (StudentAnswer.where(question_id: tq.id, question_type: "multiple_choice").select(:student_test_id)), test_id: params[:id].to_i).count
 
-          
           tq.correct_attempted_students_count = StudentTest.where(id: (StudentAnswer.where(question_id: tq.id, question_type: "multiple_choice", result: true).select(:student_test_id)), test_id: params[:id].to_i).count          
           correct_attempted_students = StudentTest.where(id: (StudentAnswer.where(question_id: tq.id, question_type: "multiple_choice", result: true).select(:student_test_id)), test_id: params[:id].to_i).select(:user_id)
           correct_attempted_students_answers = StudentAnswer.where(question_id: tq.id, result: true, student_test_id: StudentTest.where(test_id: params[:id].to_i).select(:id)).select(:answer)
@@ -161,12 +161,12 @@ class TestsController < ApplicationController
     end
     
     @total_questions.sort_by! {|u| u.created_at}
-    @total_questions = @total_questions.paginate(page: params[:page], per_page:1)
+    #@total_questions = @total_questions.paginate(page: params[:page], per_page:1)
   end
   
   def activate_test
     if Test.find_by_status("activated")
-      flash[:notice] = "Please Deactvate Activated Test"
+      flash[:notice] = "Please Deactivate Activated Test"
     else
       @test = Test.find(params[:test_id])
       @test.status = "activated"

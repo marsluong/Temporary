@@ -1,6 +1,7 @@
 class MultipleChoiceQuestionsController < ApplicationController
   before_action :set_multiple_choice_question, only: [:show, :edit, :update, :destroy]
 
+#creates new multiple choice question by taking test_id as argument
   def new
     @multiple_choice_question = MultipleChoiceQuestion.new
     @@test_id = params["test_id"].to_i
