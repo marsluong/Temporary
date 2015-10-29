@@ -160,7 +160,9 @@ class TestsController < ApplicationController
       end
     end
     
-    @total_questions.sort_by! {|u| u.created_at}
+
+    @total_questions = @total_questions.sort_by! {|u| u.created_at}
+
     #@total_questions = @total_questions.paginate(page: params[:page], per_page:1)
   end
   
