@@ -56,7 +56,9 @@
             <p>
               <br><strong>Question:</strong>
               <%= tq.description %>
-              <%= image_tag tq.image.url(:medium) %>
+              <% if tq.image.file? %>
+                  <%= image_tag tq.image.url(:medium) %>
+              <% end %>
             </p>
           </div>
         </div>
@@ -207,7 +209,9 @@
             <p>
               <br><strong>Question:</strong>
               <%= tq.description %>
-              <%= image_tag tq.image.url(:medium) %>
+              <% if tq.image.file? %>
+                  <%= image_tag tq.image.url(:medium) %>
+              <% end %>
             </p>
           </div>
         </div>
