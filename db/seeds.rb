@@ -42,7 +42,7 @@ user = User.create(:name => "Tyrin", :role => "student",:email => "tgandrsn@memp
 user = User.create(:name => "Warner", :role => "student",:email => "wwjhnsn2@memphis.edu" , :password => "software")
 user = User.create(:name => "Zack", :role => "student",:email => "zjslerno@memphis.edu" , :password => "software")
 
-#Anushu's Questions
+#Anusha's Questions
 test = Test.create(:test_name => "Prelecture Quiz Class 1", :status => "deactivated" )
 test = Test.create(:test_name => "Strategy Quiz 1", :status => "deactivated" )   
 test = Test.create(:test_name => "Strategy Quiz 2", :status => "deactivated" )   
@@ -57,12 +57,27 @@ test = Test.create(:test_name => "Facade Quiz 1", :status => "deactivated" )
 test = Test.create(:test_name => "Facade Quiz 2", :status => "deactivated" )
 test = Test.create(:test_name => "End of class 2 Quiz", :status => "deactivated" )
 
+mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "How many instances of an abstract class can be created?", :option_1 => "1", :option_2 => "5", :option_3 => "13", :option_4 => "0", :answer => "0" )
 mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "The process by which one object can acquire the properties of another object", :option_1 => "Inheritance", :option_2 => "Encapsulation", :option_3 => "Polymorphism", :option_4 => "Data hiding", :answer => "Inheritance" )
 mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "Here is a method definition:
 op(param1: Type1, param2: Type2): Return_Type1
 Which of the following has a different signature?
 ", :option_1 => "op(param1: Type1, param2: Type2) : Return_Type1", :option_2 => "op(param1: Type1, param2: Type2) : Return_Type2
 ", :option_3 => "op(param1: Type1, param2: Type2) : Return_Type2", :option_4 => "op(param1: Type1, param2: Type1) : Return_Type1", :answer => "op(param1: Type1, param2: Type1) : Return_Type1" )
+
+dsq = DescriptiveQuestion.create(:test_id => "2", :description => "Adding fly() to Duck class is a good idea? (True/False) If false, explain the reason 
+", :answer => "Not all Duck subclasses should fly")
+
+mcq = MultipleChoiceQuestion.create(:test_id => "3", :description => "Which of the following are applicable by using Flyable interface?", :option_1 => "All duck subclasses must implement Flyable interface", :option_2 => "Ducks can't quack and fly at the same time
+", :option_3 => "No Code Reusability ", :option_4 => "None", :answer => "No Code Reusability" )
+
+dsq = DescriptiveQuestion.create(:test_id => "4", :description => "What would you do if you were Joe?", :answer => "")
+
+dsq = DescriptiveQuestion.create(:test_id => "5", :description => "What is the best way to support new types of subscribers?", :answer => "")
+
+mcq = MultipleChoiceQuestion.create(:test_id => "6", :description => "What type of relationship does the subject to observer follow?", :option_1 => "One to One", :option_2 => "One to Many", :option_3 => "Many to One", :option_4 => "Many to Many", :answer => "One to Many" )
+mcq = MultipleChoiceQuestion.create(:test_id => "6", :description => "Which of the following is considered as a force to select a Strategy Pattern? ", :option_1 => "A client needs to use a family of related objects", :option_2 => "A change to an object requires changing other objects", :option_3 => "Multiple classes are the same but differ only in their behaviours", :option_4 => "none", :answer => "Multiple classes are the same but differ only in their behaviours" )
+mcq = MultipleChoiceQuestion.create(:test_id => "6", :description => "Your program generates various outputs. You need a way to notify Facebook users when certain outputs are generated.", :option_1 => "Facade", :option_2 => "Abstract Factory", :option_3 => "Observer", :option_4 => "Factory Method", :answer => "Observer")
 
 
 #Maria's Questions
