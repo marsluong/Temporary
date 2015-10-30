@@ -57,7 +57,7 @@ test = Test.create(:test_name => "Facade Quiz 1", :status => "deactivated" )
 test = Test.create(:test_name => "Facade Quiz 2", :status => "deactivated" )
 test = Test.create(:test_name => "End of class 2 Quiz", :status => "deactivated" )
 
-mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "The process by which one object can acquire the properties of another object", :option_1 => "Inheritance", :option_2 => "Encapsulation", :option_3 => "Polymorphism", :option_4 => "Data hiding", :answer => "Inheritance" )
+mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "The process by which one object can acquire the properties of another object", :image => File.open('/home/vagrant/workspace/anusha-project/javaInheritance.png'), :option_1 => "Inheritance", :option_2 => "Encapsulation", :option_3 => "Polymorphism", :option_4 => "Data hiding", :answer => "Inheritance" )
 mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "Here is a method definition:
 op(param1: Type1, param2: Type2): Return_Type1
 Which of the following has a different signature?
