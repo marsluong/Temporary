@@ -1,11 +1,27 @@
-user = User.create(:name => "Teacher", :role => "teacher", :email => "teacher@example.com" , :password => "hellohello"
-                  )  
-user = User.create(:name => "Student", :role => "student", :email => "student@example.com" , :password => "hellohello"
-                   ) 
-user = User.create(:name => "Alice", :role => "student", :email => "alice@example.com" , :password => "hellohello"
-                   )
-user = User.create(:name => "Bob", :role => "student", :email => "bob@example.com" , :password => "hellohello"
-                   )
+user = User.create(:name => "Anusha", :role => "teacher", :email => "anusha@memphis.edu" , :password => "hellohello")
+user = User.create(:name => "Maria", :role => "teacher", :email => "maria@memphis.edu" , :password => "hellohello")  
+user = User.create(:name => "T", :role => "student", :email => "tsdhlwal@memphis.edu" , :password => "software") 
+user = User.create(:name => "Aaron", :role => "student", :email => "tmrshall@memphis.edu" , :password => "software") 
+user = User.create(:name => "Austin", :role => "student", :email => "prynlds3@memphis.edu" , :password => "software") 
+user = User.create(:name => "Brandon", :role => "student", :email => "bhopper1@memphis.edu" , :password => "software") 
+user = User.create(:name => "Cameron", :role => "student", :email => "cwood2@memphis.edu" , :password => "software") 
+user = User.create(:name => "Cannon", :role => "student", :email => "wcmoyer@memphis.edu" , :password => "software") 
+user = User.create(:name => "Chris", :role => "student", :email => "cdhall3@memphis.edu" , :password => "software") 
+user = User.create(:name => "Cletus", :role => "student", :email => "chhatten@memphis.edu" , :password => "software") 
+user = User.create(:name => "Cooper", :role => "student", :email => "cbjones5@memphis.edu" , :password => "software") 
+user = User.create(:name => "Daniel", :role => "student", :email => "wdwood@memphis.edu" , :password => "software") 
+user = User.create(:name => "David", :role => "student", :email => "depucktt@memphis.edu" , :password => "software") 
+user = User.create(:name => "Denzel", :role => "student", :email => "djyoung1@memphis.edu" , :password => "software") 
+user = User.create(:name => "Drew", :role => "student", :email => "dtstbnow@memphis.edu" , :password => "software") 
+user = User.create(:name => "Ed", :role => "student", :email => "prinsiii@memphis.edu" , :password => "software") 
+user = User.create(:name => "Enyil", :role => "student", :email => "pdllvlle@memphis.edu" , :password => "software") 
+user = User.create(:name => "Eric", :role => "student", :email => "egoddard@memphis.edu" , :password => "software") 
+user = User.create(:name => "Gregory", :role => "student", :email => "gllwrnce@memphis.edu" , :password => "software") 
+user = User.create(:name => "Herve", :role => "student", :email => "haniglo@memphis.edu" , :password => "software") 
+user = User.create(:name => "Jeremy", :role => "student", :email => "jqthomas@memphis.edu" , :password => "software") 
+user = User.create(:name => "Jonathan", :role => "student", :email => "jwood5@memphis.edu" , :password => "software") 
+
+
 
 test = Test.create(:test_name => "Prelecture Quiz Class 1", :status => "deactivated" )
 test = Test.create(:test_name => "Strategy Quiz 1", :status => "deactivated" )   
