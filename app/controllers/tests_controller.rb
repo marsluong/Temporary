@@ -17,13 +17,13 @@ class TestsController < ApplicationController
       @student_response = "#{User.find(params[:student_id]).name} "+"Response :  "+" <b> #{@student_response[0][:answer]} </b>"
     else
       if params[:student_id].present?
-        @student_response ="<b> #{User.find(params[:student_id]).name} </b>"+" Didnt Attempted This Question"
+        @student_response ="<b> #{User.find(params[:student_id]).name} </b>"+" Didn't attempt this question"
       else
         @student_response ="No Student With Name : "+" <b >#{params[:term]}</b>"
       end
     end
 
-    redirect_to "/tests/#{params[:test_id]}?page=#{params[:page]}&report=true", :notice => @student_response
+    redirect_to "/tests/#{params[:test_id]}?&report=true", :notice => @student_response
   end
 
   def new

@@ -1,6 +1,7 @@
 #Student Names
 user = User.create(:name => "Anusha", :role => "teacher", :email => "asudini@memphis.edu" , :password => "hellohello")
 user = User.create(:name => "Maria", :role => "teacher", :email => "mluong@memphis.edu" , :password => "hellohello")  
+user = User.create(:name => "Student", :role => "student", :email => "student@memphis.edu" , :password => "software") 
 user = User.create(:name => "T", :role => "student", :email => "tsdhlwal@memphis.edu" , :password => "software") 
 user = User.create(:name => "Aaron", :role => "student", :email => "tmrshall@memphis.edu" , :password => "software") 
 user = User.create(:name => "Austin", :role => "student", :email => "prynlds3@memphis.edu" , :password => "software") 
@@ -57,6 +58,7 @@ test = Test.create(:test_name => "Facade Quiz 1", :status => "deactivated" )
 test = Test.create(:test_name => "Facade Quiz 2", :status => "deactivated" )
 test = Test.create(:test_name => "End of class 2 Quiz", :status => "deactivated" )
 
+=begin
 mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "How many instances of an abstract class can be created?", :option_1 => "1", :option_2 => "5", :option_3 => "13", :option_4 => "0", :answer => "0" )
 mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "The process by which one object can acquire the properties of another object", :option_1 => "Inheritance", :option_2 => "Encapsulation", :option_3 => "Polymorphism", :option_4 => "Data hiding", :answer => "Inheritance" )
 mcq = MultipleChoiceQuestion.create(:test_id => "1", :description => "Here is a method definition:
@@ -78,6 +80,7 @@ dsq = DescriptiveQuestion.create(:test_id => "5", :description => "What is the b
 mcq = MultipleChoiceQuestion.create(:test_id => "6", :description => "What type of relationship does the subject to observer follow?", :option_1 => "One to One", :option_2 => "One to Many", :option_3 => "Many to One", :option_4 => "Many to Many", :answer => "One to Many" )
 mcq = MultipleChoiceQuestion.create(:test_id => "6", :description => "Which of the following is considered as a force to select a Strategy Pattern? ", :option_1 => "A client needs to use a family of related objects", :option_2 => "A change to an object requires changing other objects", :option_3 => "Multiple classes are the same but differ only in their behaviours", :option_4 => "none", :answer => "Multiple classes are the same but differ only in their behaviours" )
 mcq = MultipleChoiceQuestion.create(:test_id => "6", :description => "Your program generates various outputs. You need a way to notify Facebook users when certain outputs are generated.", :option_1 => "Facade", :option_2 => "Abstract Factory", :option_3 => "Observer", :option_4 => "Factory Method", :answer => "Observer")
+=end
 
 
 #Maria's Questions
