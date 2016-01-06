@@ -21,6 +21,15 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+# Use Unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -34,12 +43,15 @@ end
 
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'sqlite3'
+#gem 'mysql2'
+#gem 'pg'
+#gem 'haml-rails'
 gem 'rename'
 gem 'font-awesome-rails', '~> 4.2.0.0'
 gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
 gem 'devise'
 gem "cancancan"
-gem 'paperclip', '~> 4.2'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
+gem "paperclip", "~> 4.3"

@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
   skip_authorization_check
 
-# If current user is a teacher, display all tests and also reports
   def index
     if current_user.present?
       if current_user.teacher?
@@ -9,8 +8,6 @@ class HomeController < ApplicationController
         @report_tests = StudentTest.select(:test_id).uniq
         
         render "teacher_index"
-
-#if current user is a student, display activated tests and also completed tests
       elsif current_user.student?
         @current_test_id = Test.find_by_status("activated")
         if Test.find_by_status("activated") and !StudentTest.where(status: "completed", user_id: current_user.id, test_id: @current_test_id).present?

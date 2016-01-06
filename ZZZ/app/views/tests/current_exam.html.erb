@@ -12,6 +12,11 @@
       <%= question_fields.object.description %>
     </p>
     <%= question_fields.hidden_field :id%>
+    <% if question_fields.object.image.file? %>
+      <p>
+        <%= image_tag question_fields.object.image,:height => "300x400" %>
+      </p>
+    <% end %>
     <p>
       <%= question_fields.radio_button :answer_caught, question_fields.object.option_1%>
       <span>
@@ -39,25 +44,30 @@
     <hr>
     <% end %>
   </div>
-  <div class="row">     
-    <%= f.fields_for :descriptive_questions do |d_question_fields| %>   
-    <%= d_question_fields.hidden_field :id%>    
-    <p>   
-      <strong>Question:</strong>    
-      <%= d_question_fields.object.description %>   
-    </p>    
-    <p>   
-      <strong>Answer:</strong>    
-      <%= d_question_fields.text_area :answer_caught %>   
-    </p>    
-    <hr>    
-    <% end %>   
+  <div class="row">
+    <%= f.fields_for :descriptive_questions do |d_question_fields| %>
+    <%= d_question_fields.hidden_field :id%>
+    <p>
+      <strong>Question:</strong>
+      <%= d_question_fields.object.description %>
+    </p>
+    <% if d_question_fields.object.image.file? %>
+      <p>
+       <%= image_tag d_question_fields.object.image,:height => "300x400" %>
+      </p>
+    <% end %>
+    <p>
+      <strong>Answer:</strong>
+      <%= d_question_fields.text_area :answer_caught %>
+    </p>
+    <hr>
+    <% end %>
   </div>
   <div class="row">
     <div class="col-md-4 col-sm-8 pull-right">
       <%= f.hidden_field :test_id%>
       <%= f.hidden_field :user_id, :value => current_user.id%>
-      <%= f.submit "Submit test", :class => 'btn btn-primary' %>
+      <%= f.submit "Submit Exam", :class => 'btn btn-primary', data:{disable_with:"Submitting..."} %>
     </div>
   </div>
 <% end %>

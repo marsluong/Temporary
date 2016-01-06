@@ -10,6 +10,7 @@
         <li>
           <%= link_to "Home", root_path %>
         </li>
+
         <% if current_user.present? %>
          
           <% if current_user.teacher? %>
@@ -20,7 +21,7 @@
                 <% end %>
 
                  <li>
-            <%= link_to "Your profile", registrations_show_path %>
+            <%= link_to "Your Profile", registrations_show_path %>
           </li>
 
           <li>
@@ -31,6 +32,9 @@
           <li>
             <%= link_to "Sign in", new_user_session_path %>
           </li>
+     <!--      <li>
+            <%#= link_to "Registration", new_user_registration_path %>
+          </li> -->
         <% end %>
       </ul>
     </div>

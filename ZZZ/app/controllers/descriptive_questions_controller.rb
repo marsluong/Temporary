@@ -1,5 +1,6 @@
 class DescriptiveQuestionsController < ApplicationController
   before_action :set_descriptive_question, only: [:show, :edit, :update, :destroy]
+
   def new
     @descriptive_question = DescriptiveQuestion.new
     @@test_id = params["test_id"].to_i
@@ -19,7 +20,7 @@ class DescriptiveQuestionsController < ApplicationController
   end
 
   def edit
-     @@page = params[:page]
+    @@page = params[:page]
   end
 
   def update
